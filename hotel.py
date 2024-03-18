@@ -21,12 +21,12 @@ class HotelManagementSystem:
         
         #=================LOGO==============================
         img2 = Image.open("images\logo2.jpg")
-        img2 = img2.resize((230,140),Image.Resampling.BILINEAR)
+        img2 = img2.resize((200,140),Image.Resampling.BILINEAR)
         self.photoimg2 = ImageTk.PhotoImage(img2)
         
 
         img_label2 = Label(self.root, image=self.photoimg2, bd=2, relief=RIDGE)
-        img_label2.place(x=0, y=0, width=230, height=140)
+        img_label2.place(x=0, y=0, width=200, height=140)
 
         # =================TITLE==============================
         label_title = Label(self.root, text="HOTEL MANAGEMENT SYSTEM", font=("times new roman", 30, "bold"), bg="green", fg="gold", bd=2, relief=RIDGE)
