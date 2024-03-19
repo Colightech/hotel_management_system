@@ -116,16 +116,16 @@ class Customer_window:
         btn_frame = Frame(label_frame_left, bd=2, relief=RIDGE)
         btn_frame.place(x=3, y=400, width=412, height=40)
 
-        add_btn = Button(btn_frame, text="Add", font=("arial", 10, "bold"), bg="green", fg="gold", width=8)
+        add_btn = Button(btn_frame, text="Add", font=("arial", 10, "bold"), bg="green", fg="gold", width=10)
         add_btn.grid(row=0, column=0, padx=2, pady=4)
 
-        add_btn = Button(btn_frame, text="Update", font=("arial", 10, "bold"), bg="green", fg="gold", width=8)
+        add_btn = Button(btn_frame, text="Update", font=("arial", 10, "bold"), bg="green", fg="gold", width=10)
         add_btn.grid(row=0, column=1, padx=8, pady=4)
 
-        add_btn = Button(btn_frame, text="Delete", font=("arial", 10, "bold"), bg="green", fg="gold", width=8)
+        add_btn = Button(btn_frame, text="Delete", font=("arial", 10, "bold"), bg="green", fg="gold", width=10)
         add_btn.grid(row=0, column=2, padx=8, pady=4)
 
-        add_btn = Button(btn_frame, text="Reset", font=("arial", 10, "bold"), bg="green", fg="gold", width=8)
+        add_btn = Button(btn_frame, text="Reset", font=("arial", 10, "bold"), bg="green", fg="gold", width=10)
         add_btn.grid(row=0, column=3, padx=8, pady=4)
 
 
