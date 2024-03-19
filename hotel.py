@@ -29,7 +29,7 @@ class HotelManagementSystem:
         img_label2.place(x=0, y=0, width=200, height=140)
 
         # =================TITLE==============================
-        label_title = Label(self.root, text="HOTEL MANAGEMENT SYSTEM", font=("times new roman", 30, "bold"), bg="green", fg="gold", bd=2, relief=RIDGE)
+        label_title = Label(self.root, text="HOTEL MANAGEMENT SYSTEM", font=("times new roman", 25, "bold"), bg="green", fg="gold", bd=2, relief=RIDGE)
         label_title.place(x=0, y=140, width=1550, height=50)
 
         # =================MAIN FRAME========================
