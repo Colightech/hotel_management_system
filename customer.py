@@ -116,17 +116,39 @@ class Customer_window:
         btn_frame = Frame(label_frame_left, bd=2, relief=RIDGE)
         btn_frame.place(x=3, y=400, width=412, height=40)
 
-        add_btn = Button(btn_frame, text="Add", font=("arial", 10, "bold"), bg="green", fg="gold", width=10)
+        add_btn = Button(btn_frame, text="Add", font=("arial", 10, "bold"), bg="green", fg="gold", width=10, cursor="hand2")
         add_btn.grid(row=0, column=0, padx=2, pady=4)
 
-        add_btn = Button(btn_frame, text="Update", font=("arial", 10, "bold"), bg="green", fg="gold", width=10)
-        add_btn.grid(row=0, column=1, padx=8, pady=4)
+        update_btn = Button(btn_frame, text="Update", font=("arial", 10, "bold"), bg="green", fg="gold", width=10, cursor="hand2")
+        update_btn.grid(row=0, column=1, padx=8, pady=4)
 
-        add_btn = Button(btn_frame, text="Delete", font=("arial", 10, "bold"), bg="green", fg="gold", width=10)
-        add_btn.grid(row=0, column=2, padx=8, pady=4)
+        delete_btn = Button(btn_frame, text="Delete", font=("arial", 10, "bold"), bg="green", fg="gold", width=10, cursor="hand2")
+        delete_btn.grid(row=0, column=2, padx=8, pady=4)
 
-        add_btn = Button(btn_frame, text="Reset", font=("arial", 10, "bold"), bg="green", fg="gold", width=10)
-        add_btn.grid(row=0, column=3, padx=8, pady=4)
+        reset_btn = Button(btn_frame, text="Reset", font=("arial", 10, "bold"), bg="green", fg="gold", width=10, cursor="hand2")
+        reset_btn.grid(row=0, column=3, padx=8, pady=4)
+
+         #=================TABLE FRAME==============================
+        table_frame = LabelFrame(self.root, bd = 2, relief = RIDGE, text = "View Details and Search System", font=("arial", 10, "bold"))
+        table_frame.place(x = 435, y = 50, width = 860, height = 490)
+
+        # search table
+        search_label = Label(table_frame, text = "Search:", font=("arial", 10, "bold"), bg="red", fg="white")
+        search_label.grid(row=0, column=0, sticky=W, padx=3)
+
+        combo_id_proof_label = ttk.Combobox(table_frame, font=("arial", 10, "bold"), width=24, state="readonly")
+        combo_id_proof_label["value"] = ("Mobile", "Ref")
+        combo_id_proof_label.current(0)
+        combo_id_proof_label.grid(row=0, column=1, padx=2)
+
+        entry_search = ttk.Entry( table_frame, width=24, font=("arial", 10, "bold"))
+        entry_search.grid(row=0, column=2, padx=2)
+
+        search_btn = Button(table_frame, text="Search", font=("arial", 8, "bold"), bg="green", fg="gold", width=15, cursor="hand2")
+        search_btn.grid(row=0, column=3, padx=4)
+
+        show_all_btn = Button(table_frame, text="Show All", font=("arial", 8, "bold"), bg="green", fg="gold", width=15, cursor="hand2")
+        show_all_btn.grid(row=0, column=4, padx=4)
 
 
 
