@@ -139,13 +139,13 @@ class Customer_window:
         add_btn = Button(btn_frame, text="Add",  command=self.add_data, font=("arial", 10, "bold"), bg="green", fg="gold", width=10, cursor="hand2")
         add_btn.grid(row=0, column=0, padx=2, pady=4)
 
-        update_btn = Button(btn_frame, text="Update", font=("arial", 10, "bold"), bg="green", fg="gold", width=10, cursor="hand2")
+        update_btn = Button(btn_frame, text="Update", command=self.update, font=("arial", 10, "bold"), bg="green", fg="gold", width=10, cursor="hand2")
         update_btn.grid(row=0, column=1, padx=8, pady=4)
 
-        delete_btn = Button(btn_frame, text="Delete", font=("arial", 10, "bold"), bg="green", fg="gold", width=10, cursor="hand2")
+        delete_btn = Button(btn_frame, text="Delete", command=self.delete_customer, font=("arial", 10, "bold"), bg="green", fg="gold", width=10, cursor="hand2")
         delete_btn.grid(row=0, column=2, padx=8, pady=4)
 
-        reset_btn = Button(btn_frame, text="Reset", font=("arial", 10, "bold"), bg="green", fg="gold", width=10, cursor="hand2")
+        reset_btn = Button(btn_frame, text="Reset", command=self.reset, font=("arial", 10, "bold"), bg="green", fg="gold", width=10, cursor="hand2")
         reset_btn.grid(row=0, column=3, padx=8, pady=4)
 
          #=================TABLE FRAME==============================
@@ -257,6 +257,7 @@ class Customer_window:
             conn.commit()
         conn.close()
 
+    # =================FUNCTION THAT REFILL THE FIELDS WITH THE CURSOR FOCUS ROW==============================
     def get_cursor(self, event=""):
         cursor_row = self.Cust_Details_Table.focus()
         content = self.Cust_Details_Table.item(cursor_row)
@@ -273,6 +274,63 @@ class Customer_window:
         self.var_id_proof.set(row[8]),
         self.var_id_number.set(row[9]),
         self.var_address.set(row[10])
+
+    # =================UPDATE FUNCTION==============================
+    def update(self):
+        if self.var_mobile.get() =="":
+            messagebox.showerror("Error", "Please enter mobile number", parent=self.root)
+        else:
+            conn = mysql.connector.connect(host="127.0.0.1", username="root", password="admin123", database="hotel_management_system")
+            my_cursor = conn.cursor()
+            my_cursor.execute("UPDATE customer SET Name=%s, Mother=%s, Gender=%s, PostCode=%s, Mobile=%s, Email=%s, Nationality=%s, Idproof=%s, Idnumber=%s, Address=%s WHERE Ref=%s", (
+                                                                                                                                                                        self.var_cust_name.get(),
+                                                                                                                                                                        self.var_mother.get(),
+                                                                                                                                                                        self.var_gender.get(),
+                                                                                                                                                                        self.var_post.get(),
+                                                                                                                                                                        self.var_mobile.get(),
+                                                                                                                                                                        self.var_email.get(),
+                                                                                                                                                                        self.var_nationality.get(),
+                                                                                                                                                                        self.var_id_proof.get(),
+                                                                                                                                                                        self.var_id_number.get(),
+                                                                                                                                                                        self.var_address.get(),
+                                                                                                                                                                        self.var_ref.get()
+                                                                                                                                                                    ))
+            conn.commit()
+            self.fetch_data()
+            conn.close()
+            messagebox.showinfo("Update", "Customer details has been updated successfully", parent=self.root)
+
+    # =================DELETE FUNCTION==============================
+    def delete_customer(self):
+        var_delete = messagebox.askyesno("Hotel Management System", "Are you sure you want to delete this customer", parent=self.root)
+        if var_delete > 0:
+            conn = mysql.connector.connect(host="127.0.0.1", username="root", password="admin123", database="hotel_management_system")
+            my_cursor = conn.cursor()
+            query = "DELETE FROM customer WHERE Ref=%s"
+            value = (self.var_ref.get(),)
+            my_cursor.execute(query, value)
+        else:
+            if not var_delete:
+                return
+        conn.commit()
+        self.fetch_data()
+        conn.close()
+        messagebox.showinfo("Deleted", "Customer details has been deleted successfully", parent=self.root)
+
+    # =================RESET FUNCTION==============================
+    def reset(self):
+        self.var_ref.set(""),
+        self.var_cust_name.set(""),
+        self.var_mother.set(""),
+        self.var_gender.set(""),
+        self.var_post.set(""),
+        self.var_mobile.set(""),
+        self.var_email.set(""),
+        self.var_nationality.set(""),
+        self.var_id_proof.set(""),
+        self.var_id_number.set(""),
+        self.var_address.set("")
+
 
 
 if __name__ == "__main__":
