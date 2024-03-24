@@ -148,7 +148,7 @@ class Customer_window:
         reset_btn = Button(btn_frame, text="Reset", command=self.reset, font=("arial", 10, "bold"), bg="green", fg="gold", width=10, cursor="hand2")
         reset_btn.grid(row=0, column=3, padx=8, pady=4)
 
-         #=================TABLE FRAME==============================
+         #=================TABLE FRAME AND SEARCH SYSTEM==============================
         table_frame = LabelFrame(self.root, bd = 2, relief = RIDGE, text = "View Details and Search System", font=("arial", 10, "bold"))
         table_frame.place(x = 435, y = 50, width = 860, height = 490)
 
@@ -156,18 +156,20 @@ class Customer_window:
         search_label = Label(table_frame, text = "Search:", font=("arial", 10, "bold"), bg="red", fg="white")
         search_label.grid(row=0, column=0, sticky=W, padx=3, pady=5)
 
-        combo_id_proof_label = ttk.Combobox(table_frame, font=("arial", 10, "bold"), width=24, state="readonly")
-        combo_id_proof_label["value"] = ("Mobile", "Ref")
+        self.search_var=StringVar()
+        combo_id_proof_label = ttk.Combobox(table_frame, textvariable=self.search_var, font=("arial", 10, "bold"), width=24, state="readonly")
+        combo_id_proof_label["value"] = ("Mobile", "Ref", "Name")
         combo_id_proof_label.current(0)
         combo_id_proof_label.grid(row=0, column=1, padx=2)
 
-        entry_search = ttk.Entry( table_frame, width=24, font=("arial", 10, "bold"))
+        self.txt_search=StringVar()
+        entry_search = ttk.Entry( table_frame, textvariable=self.txt_search, width=24, font=("arial", 10, "bold"))
         entry_search.grid(row=0, column=2, padx=2)
 
-        search_btn = Button(table_frame, text="Search", font=("arial", 8, "bold"), bg="green", fg="gold", width=15, cursor="hand2")
+        search_btn = Button(table_frame, text="Search", command=self.search, font=("arial", 8, "bold"), bg="green", fg="gold", width=15, cursor="hand2")
         search_btn.grid(row=0, column=3, padx=4)
 
-        show_all_btn = Button(table_frame, text="Show All", font=("arial", 8, "bold"), bg="green", fg="gold", width=15, cursor="hand2")
+        show_all_btn = Button(table_frame, text="Show All", command=self.fetch_data, font=("arial", 8, "bold"), bg="green", fg="gold", width=15, cursor="hand2")
         show_all_btn.grid(row=0, column=4, padx=4)
 
         #=================SHOW DATA TABLE==============================
@@ -319,17 +321,33 @@ class Customer_window:
 
     # =================RESET FUNCTION==============================
     def reset(self):
-        self.var_ref.set(""),
+        # self.var_ref.set(""),
         self.var_cust_name.set(""),
         self.var_mother.set(""),
-        self.var_gender.set(""),
+        # self.var_gender.set(""),
         self.var_post.set(""),
         self.var_mobile.set(""),
         self.var_email.set(""),
-        self.var_nationality.set(""),
-        self.var_id_proof.set(""),
+        # self.var_nationality.set(""),
+        # self.var_id_proof.set(""),
         self.var_id_number.set(""),
         self.var_address.set("")
+
+        x=random.randint(1000,9999)
+        self.var_ref.set(str(x))
+
+    # =================SEARCH FUNCTION==============================
+    def search(self):
+        conn = mysql.connector.connect(host="127.0.0.1", username="root", password="admin123", database="hotel_management_system")
+        my_cursor = conn.cursor()
+        my_cursor.execute("SELECT * FROM customer WHERE "+str(self.search_var.get())+" LIKE '%"+str(self.txt_search.get())+"%' ")
+        rows=my_cursor.fetchall()
+        if len(rows) != 0:
+            self.Cust_Details_Table.delete(*self.Cust_Details_Table.get_children())
+            for i in rows:
+                self.Cust_Details_Table.insert("",END,values=i)
+            conn.commit()
+        conn.close()
 
 
 
