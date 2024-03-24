@@ -1,6 +1,7 @@
 from tkinter import *
 from PIL import Image, ImageTk   #pip3 install pillow
 from customer import Customer_window
+from room import Room_window
 
 
 class HotelManagementSystem:
@@ -47,7 +48,7 @@ class HotelManagementSystem:
         cust_btn = Button(btn_frame, text="CUSTOMER", command = self.customer_details, width=20, font=("times new roman", 14, "bold"), bg="green", fg="gold", bd=0, cursor="hand2")
         cust_btn.grid(row=0, column=0, pady=1)
 
-        room_btn = Button(btn_frame, text="ROOM", width=20, font=("times new roman", 14, "bold"), bg="green", fg="gold", bd=0, cursor="hand2")
+        room_btn = Button(btn_frame, text="ROOM", command=self.room_booking, width=20, font=("times new roman", 14, "bold"), bg="green", fg="gold", bd=0, cursor="hand2")
         room_btn.grid(row=1, column=0, pady=1)
 
         detail_btn = Button(btn_frame, text="DETAILS", width=20, font=("times new roman", 14, "bold"), bg="green", fg="gold", bd=0, cursor="hand2")
@@ -89,6 +90,12 @@ class HotelManagementSystem:
     def customer_details(self):
         self.new_window = Toplevel(self.root)
         self.app = Customer_window(self.new_window)
+
+        # =====================ROOM BOOKING WINDOW FUNCTION=======================
+    def room_booking(self):
+        self.new_window = Toplevel(self.root)
+        self.app = Room_window(self.new_window)
+
 
 
 
