@@ -48,33 +48,33 @@ class Customer_window:
         label_frame_left.place(x = 0, y = 50, width = 425, height = 490)
 
 
-         #=================LABEL AND ENTRY==============================
+        #=================LABEL AND ENTRY==============================
         # customer ref
         label_cust_ref = Label(label_frame_left, text = "Customer Ref:", font=("arial", 10, "bold"), padx=2, pady=6)
         label_cust_ref.grid(row=0, column=0, sticky=W)
 
-        entry_ref = ttk.Entry( label_frame_left, textvariable=self.var_ref, width=29, font=("arial", 11, "bold"), state="readonly")
+        entry_ref = ttk.Entry( label_frame_left, textvariable=self.var_ref, width=37, font=("arial", 11, "bold"), state="readonly")
         entry_ref.grid(row=0, column=1)
 
         # customer name
         cust_name = Label(label_frame_left, text = "Customer Name:", font=("arial", 10, "bold"), padx=2, pady=6)
         cust_name.grid(row=1, column=0, sticky=W)
 
-        entry_name = ttk.Entry( label_frame_left, textvariable=self.var_cust_name, width=29, font=("arial", 11, "bold"))
+        entry_name = ttk.Entry( label_frame_left, textvariable=self.var_cust_name, width=37, font=("arial", 11, "bold"))
         entry_name.grid(row=1, column=1)
 
         # mother name
         mother_name = Label(label_frame_left, text = "Mother Name:", font=("arial", 10, "bold"), padx=2, pady=6)
         mother_name.grid(row=2, column=0, sticky=W)
 
-        entry_mother_name = ttk.Entry( label_frame_left, textvariable=self.var_mother, width=29, font=("arial", 11, "bold"))
+        entry_mother_name = ttk.Entry( label_frame_left, textvariable=self.var_mother, width=37, font=("arial", 11, "bold"))
         entry_mother_name.grid(row=2, column=1)
 
         # gender combobox
         gender = Label(label_frame_left, text = "Gender:", font=("arial", 10, "bold"), padx=2, pady=6)
         gender.grid(row=3, column=0, sticky=W)
 
-        combo_gender = ttk.Combobox(label_frame_left, textvariable=self.var_gender, font=("arial", 11, "bold"), width=27, state="readonly")
+        combo_gender = ttk.Combobox(label_frame_left, textvariable=self.var_gender, font=("arial", 11, "bold"), width=35, state="readonly")
         combo_gender["value"] = ("Male", "Female")
         combo_gender.current(0)
         combo_gender.grid(row=3, column=1)
@@ -83,28 +83,28 @@ class Customer_window:
         post_code = Label(label_frame_left, text = "PostCode:", font=("arial", 10, "bold"), padx=2, pady=6)
         post_code.grid(row=4, column=0, sticky=W)
 
-        entry_post_code = ttk.Entry( label_frame_left, textvariable=self.var_post, width=29, font=("arial", 11, "bold"))
+        entry_post_code = ttk.Entry( label_frame_left, textvariable=self.var_post, width=37, font=("arial", 11, "bold"))
         entry_post_code.grid(row=4, column=1)
 
         # mobile number
         label_mobile = Label(label_frame_left, text = "Mobile:", font=("arial", 10, "bold"), padx=2, pady=6)
         label_mobile.grid(row=5, column=0, sticky=W)
 
-        entry_label_mobile = ttk.Entry( label_frame_left, textvariable=self.var_mobile, width=29, font=("arial", 11, "bold"))
+        entry_label_mobile = ttk.Entry( label_frame_left, textvariable=self.var_mobile, width=37, font=("arial", 11, "bold"))
         entry_label_mobile.grid(row=5, column=1)
 
         # email
         email_label = Label(label_frame_left, text = "Email:", font=("arial", 10, "bold"), padx=2, pady=6)
         email_label.grid(row=6, column=0, sticky=W)
 
-        entry_email_label = ttk.Entry( label_frame_left, textvariable=self.var_email, width=29, font=("arial", 11, "bold"))
+        entry_email_label = ttk.Entry( label_frame_left, textvariable=self.var_email, width=37, font=("arial", 11, "bold"))
         entry_email_label.grid(row=6, column=1)
 
         # nationality combobox
         post_nationality = Label(label_frame_left, text = "Nationality:", font=("arial", 10, "bold"), padx=2, pady=6)
         post_nationality.grid(row=7, column=0, sticky=W)
 
-        combo_nationality = ttk.Combobox(label_frame_left, textvariable=self.var_nationality, font=("arial", 11, "bold"), width=27, state="readonly")
+        combo_nationality = ttk.Combobox(label_frame_left, textvariable=self.var_nationality, font=("arial", 11, "bold"), width=35, state="readonly")
         combo_nationality["value"] = ("Nigeria", "Canada", "USA", "UK", "France", "Australia", "Germany", "Italy")
         combo_nationality.current(0)
         combo_nationality.grid(row=7, column=1)
@@ -113,7 +113,7 @@ class Customer_window:
         id_proof_label = Label(label_frame_left, text = "Id Proof Type:", font=("arial", 10, "bold"), padx=2, pady=6)
         id_proof_label.grid(row=8, column=0, sticky=W)
 
-        combo_id_proof_label = ttk.Combobox(label_frame_left, textvariable=self.var_id_proof, font=("arial", 11, "bold"), width=27, state="readonly")
+        combo_id_proof_label = ttk.Combobox(label_frame_left, textvariable=self.var_id_proof, font=("arial", 11, "bold"), width=35, state="readonly")
         combo_id_proof_label["value"] = ("International Passport", "Drivers License", "National Id")
         combo_id_proof_label.current(0)
         combo_id_proof_label.grid(row=8, column=1)
@@ -122,14 +122,14 @@ class Customer_window:
         id_number = Label(label_frame_left, text = "Id Number:", font=("arial", 10, "bold"), padx=2, pady=6)
         id_number.grid(row=9, column=0, sticky=W)
 
-        entry_id_number = ttk.Entry( label_frame_left, textvariable=self.var_id_number, width=29, font=("arial", 11, "bold"))
+        entry_id_number = ttk.Entry( label_frame_left, textvariable=self.var_id_number, width=37, font=("arial", 11, "bold"))
         entry_id_number.grid(row=9, column=1)
 
         # address
         address_label = Label(label_frame_left, text = "Address:", font=("arial", 10, "bold"), padx=2, pady=6)
         address_label.grid(row=10, column=0, sticky=W)
 
-        entry_address_label = ttk.Entry( label_frame_left, textvariable=self.var_address, width=29, font=("arial", 11, "bold"))
+        entry_address_label = ttk.Entry( label_frame_left, textvariable=self.var_address, width=37, font=("arial", 11, "bold"))
         entry_address_label.grid(row=10, column=1)
 
         #=================BUTTONS==============================
