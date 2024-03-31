@@ -132,7 +132,7 @@ class Customer_window:
         entry_address_label = ttk.Entry( label_frame_left, textvariable=self.var_address, width=37, font=("arial", 11, "bold"))
         entry_address_label.grid(row=10, column=1)
 
-        #=================BUTTONS==============================
+        # =================BUTTONS==============================
         btn_frame = Frame(label_frame_left, bd=2, relief=RIDGE)
         btn_frame.place(x=3, y=400, width=412, height=40)
 
@@ -148,7 +148,7 @@ class Customer_window:
         reset_btn = Button(btn_frame, text="Reset", command=self.reset, font=("arial", 10, "bold"), bg="green", fg="gold", width=10, cursor="hand2")
         reset_btn.grid(row=0, column=3, padx=8, pady=4)
 
-         #=================TABLE FRAME AND SEARCH SYSTEM==============================
+        # =================TABLE FRAME AND SEARCH SYSTEM==============================
         table_frame = LabelFrame(self.root, bd = 2, relief = RIDGE, text = "View Details and Search System", font=("arial", 10, "bold"))
         table_frame.place(x = 435, y = 50, width = 860, height = 490)
 
@@ -172,7 +172,7 @@ class Customer_window:
         show_all_btn = Button(table_frame, text="Show All", command=self.fetch_data, font=("arial", 8, "bold"), bg="green", fg="gold", width=15, cursor="hand2")
         show_all_btn.grid(row=0, column=4, padx=4)
 
-        #=================SHOW DATA TABLE==============================
+        # =================SHOW DATA TABLE==============================
         detail_table = Frame(table_frame, bd=2, relief=RIDGE)
         detail_table.place(x=0, y=35, width=858, height=435)
 
