@@ -117,16 +117,16 @@ class Room_window:
         btn_frame = Frame(label_frame_left, bd=2, relief=RIDGE)
         btn_frame.place(x=3, y=400, width=412, height=40)
 
-        add_btn = Button(btn_frame, text="Add",  font=("arial", 10, "bold"), bg="green", fg="gold", width=10, cursor="hand2")
+        add_btn = Button(btn_frame, text="Add", command=self.add_room,  font=("arial", 10, "bold"), bg="green", fg="gold", width=10, cursor="hand2")
         add_btn.grid(row=0, column=0, padx=2, pady=4)
 
-        update_btn = Button(btn_frame, text="Update", font=("arial", 10, "bold"), bg="green", fg="gold", width=10, cursor="hand2")
+        update_btn = Button(btn_frame, text="Update", command=self.update_room, font=("arial", 10, "bold"), bg="green", fg="gold", width=10, cursor="hand2")
         update_btn.grid(row=0, column=1, padx=8, pady=4)
 
         delete_btn = Button(btn_frame, text="Delete", font=("arial", 10, "bold"), bg="green", fg="gold", width=10, cursor="hand2")
         delete_btn.grid(row=0, column=2, padx=8, pady=4)
 
-        reset_btn = Button(btn_frame, text="Reset", font=("arial", 10, "bold"), bg="green", fg="gold", width=10, cursor="hand2")
+        reset_btn = Button(btn_frame, text="Reset", command=self.reset_room, font=("arial", 10, "bold"), bg="green", fg="gold", width=10, cursor="hand2")
         reset_btn.grid(row=0, column=3, padx=8, pady=4)
 
         # =====================RIGHT SIDE IMAGE==========================
@@ -186,7 +186,7 @@ class Room_window:
         self.room_table.heading("noofdays", text="No of Days")
 
         self.room_table["show"] = "headings"
-         #=========TO CONTROL THE WIDTH OF THE TABLE COLUMNS===========
+        #=========TO CONTROL THE WIDTH OF THE TABLE COLUMNS===========
         self.room_table.column("contact", width=140)
         self.room_table.column("checkin", width=140)
         self.room_table.column("checkout", width=140)
@@ -196,7 +196,10 @@ class Room_window:
         self.room_table.column("noofdays", width=100)
 
         self.room_table.pack(fill=BOTH, expand=1)
+        self.room_table.bind("<ButtonRelease-1>", self.get_room_cursor)
+        self.fetch_room()
 
+    #=================PREVIEW RECORD FETCH FUNCTION===================
     def fetch_contact(self):
         if self.var_contact.get()=="":
             messagebox.showerror("Error", "Please Enter Contact Number", parent=self.root)
@@ -204,7 +207,7 @@ class Room_window:
 
             conn = mysql.connector.connect(host="127.0.0.1", username="root", password="admin123", database="hotel_management_system")
             my_cursor = conn.cursor()
-            query = ("SELECT Name FROM customer WHERE Mobile=%s")
+            query = ("SELECT Ref FROM customer WHERE Mobile=%s")
             value = (self.var_contact.get(),)
             my_cursor.execute(query, value)
             row = my_cursor.fetchone()
@@ -218,8 +221,193 @@ class Room_window:
                 showDataframe = Frame(self.root, bd=4, relief=RIDGE)
                 showDataframe.place(x=430, y=60, width=260, height=210)
 
+                label_ref = Label(showDataframe, text="Ref:", font=("arial", 12, "bold"))
+                label_ref.place(x=0, y=0)
+
+                label = Label(showDataframe, text=row, font=("arial", 12, "bold"))
+                label.place(x=90, y=0)
+
+                # =================SELECT NAME======================
+                conn = mysql.connector.connect(host="127.0.0.1", username="root", password="admin123", database="hotel_management_system")
+                my_cursor = conn.cursor()
+                query = ("SELECT Name FROM customer WHERE Mobile=%s")
+                value = (self.var_contact.get(),)
+                my_cursor.execute(query, value)
+                row = my_cursor.fetchone()
+
                 label_name = Label(showDataframe, text="Name:", font=("arial", 12, "bold"))
-                label_name.place(x=0, y=0)
+                label_name.place(x=0, y=30)
+
+                label2 = Label(showDataframe, text=row, font=("arial", 12, "bold"))
+                label2.place(x=90, y=30)
+
+                # =================SELECT GENDER======================
+                conn = mysql.connector.connect(host="127.0.0.1", username="root", password="admin123", database="hotel_management_system")
+                my_cursor = conn.cursor()
+                query = ("SELECT Gender FROM customer WHERE Mobile=%s")
+                value = (self.var_contact.get(),)
+                my_cursor.execute(query, value)
+                row = my_cursor.fetchone()
+
+                label_gender = Label(showDataframe, text="Gender:", font=("arial", 12, "bold"))
+                label_gender.place(x=0, y=60)
+
+                label3 = Label(showDataframe, text=row, font=("arial", 12, "bold"))
+                label3.place(x=90, y=60)
+
+                # =================SELECT MOBILE======================
+                conn = mysql.connector.connect(host="127.0.0.1", username="root", password="admin123", database="hotel_management_system")
+                my_cursor = conn.cursor()
+                query = ("SELECT Mobile FROM customer WHERE Mobile=%s")
+                value = (self.var_contact.get(),)
+                my_cursor.execute(query, value)
+                row = my_cursor.fetchone()
+
+                label_mobile = Label(showDataframe, text="Mobile:", font=("arial", 12, "bold"))
+                label_mobile.place(x=0, y=90)
+
+                label4 = Label(showDataframe, text=row, font=("arial", 12, "bold"))
+                label4.place(x=90, y=90)
+
+                # =================SELECT NATIONALITY======================
+                conn = mysql.connector.connect(host="127.0.0.1", username="root", password="admin123", database="hotel_management_system")
+                my_cursor = conn.cursor()
+                query = ("SELECT Nationality FROM customer WHERE Mobile=%s")
+                value = (self.var_contact.get(),)
+                my_cursor.execute(query, value)
+                row = my_cursor.fetchone()
+
+                label_nationality = Label(showDataframe, text="Nationality:", font=("arial", 12, "bold"))
+                label_nationality.place(x=0, y=120)
+
+                label5 = Label(showDataframe, text=row, font=("arial", 12, "bold"))
+                label5.place(x=90, y=120)
+
+                # =================SELECT PROOF OF ID======================
+                conn = mysql.connector.connect(host="127.0.0.1", username="root", password="admin123", database="hotel_management_system")
+                my_cursor = conn.cursor()
+                query = ("SELECT Idproof FROM customer WHERE Mobile=%s")
+                value = (self.var_contact.get(),)
+                my_cursor.execute(query, value)
+                row = my_cursor.fetchone()
+
+                label_idproof = Label(showDataframe, text="Id Proof:", font=("arial", 12, "bold"))
+                label_idproof.place(x=0, y=150)
+
+                label6 = Label(showDataframe, text=row, font=("arial", 12, "bold"))
+                label6.place(x=90, y=150)
+
+                # =================SELECT EMAIL======================
+                conn = mysql.connector.connect(host="127.0.0.1", username="root", password="admin123", database="hotel_management_system")
+                my_cursor = conn.cursor()
+                query = ("SELECT Email FROM customer WHERE Mobile=%s")
+                value = (self.var_contact.get(),)
+                my_cursor.execute(query, value)
+                row = my_cursor.fetchone()
+
+                label_email = Label(showDataframe, text="Email:", font=("arial", 12, "bold"))
+                label_email.place(x=0, y=180)
+
+                label7 = Label(showDataframe, text=row, font=("arial", 12, "bold"))
+                label7.place(x=55, y=180)
+
+     #=================FUNCTION THAT INSERT DATA TABLE==============================
+    def add_room(self):
+        if self.var_contact.get() =="" or self.var_availableroom.get()=="":
+            messagebox.showerror("Error:", "All field are required", parent=self.root)
+        else:
+            try:
+                conn = mysql.connector.connect(host="127.0.0.1", username="root", password="admin123", database="hotel_management_system")
+                my_cursor = conn.cursor()
+                my_cursor.execute("INSERT INTO room value(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (
+                                                                                        self.var_contact.get(),
+                                                                                        self.var_checkin.get(),
+                                                                                        self.var_checkout.get(),
+                                                                                        self.var_roomtype.get(),
+                                                                                        self.var_availableroom.get(),
+                                                                                        self.var_meal.get(),
+                                                                                        self.var_noofdays.get(),
+                                                                                        self.var_paidtax.get(),
+                                                                                        self.var_subtotal.get(),
+                                                                                        self.var_totalcost.get()
+                                                                                    ))
+                conn.commit()
+                self.fetch_room()
+                conn.close()
+                messagebox.showinfo("Success", "Room has been added", parent=self.root)
+            except Exception as e:
+                messagebox.showwarning("Warning", "something went wrong: {}".format(e), parent=self.root)
+
+     # =================FUNCTION THAT FETCH DATA FROM MYSQL DATABASE TABLE AND DISPLAYED IT ON THE APP==============================
+    def fetch_room(self):
+        conn = mysql.connector.connect(host="127.0.0.1", username="root", password="admin123", database="hotel_management_system")
+        my_cursor = conn.cursor()
+        my_cursor.execute("SELECT * FROM room")
+        rows = my_cursor.fetchall()
+        if len(rows) != 0:
+            self.room_table.delete(*self.room_table.get_children())
+            for i in rows:
+                self.room_table.insert("", END, values=i)
+            conn.commit()
+        conn.close()
+
+
+     # =================UPDATE FUNCTION==============================
+    def update_room(self):
+        if self.var_contact.get() =="":
+            messagebox.showerror("Error", "Please enter mobile number", parent=self.root)
+        else:
+            conn = mysql.connector.connect(host="127.0.0.1", username="root", password="admin123", database="hotel_management_system")
+            my_cursor = conn.cursor()
+            my_cursor.execute("UPDATE room SET Checkin=%s, Checkout=%s, Roomtype=%s, Availableroom=%s, Meal=%s, Noofdays=%s, Paytax=%s, Subtotal=%s, Totalcost=%s WHERE Contact=%s", (
+                                                                                                                                                                        self.var_checkin.get(),
+                                                                                                                                                                        self.var_checkout.get(),
+                                                                                                                                                                        self.var_roomtype.get(),
+                                                                                                                                                                        self.var_availableroom.get(),
+                                                                                                                                                                        self.var_meal.get(),
+                                                                                                                                                                        self.var_noofdays.get(),
+                                                                                                                                                                        self.var_paidtax.get(),
+                                                                                                                                                                        self.var_subtotal.get(),
+                                                                                                                                                                        self.var_totalcost.get(),
+                                                                                                                                                                        self.var_contact.get()
+                                                                                                                                                                    ))
+            conn.commit()
+            self.fetch_room()
+            conn.close()
+            messagebox.showinfo("Update", "Customer details has been updated successfully", parent=self.root)
+
+    # =================FUNCTION THAT REFILL THE FIELDS WITH THE CURSOR FOCUS ROW==============================
+    def get_room_cursor(self, event=""):
+        cursor_row = self.room_table.focus()
+        content = self.room_table.item(cursor_row)
+        row = content["values"]
+
+        self.var_contact.set(row[0]),
+        self.var_checkin.set(row[1]),
+        self.var_checkout.set(row[2]),
+        self.var_roomtype.set(row[3]),
+        self.var_availableroom.set(row[4]),
+        self.var_meal.set(row[5]),
+        self.var_noofdays.set(row[6]),
+        self.var_paidtax.set(row[7]),
+        self.var_subtotal.set(row[8]),
+        self.var_totalcost.set(row[9])
+
+    
+     # =================RESET FUNCTION==============================
+    def reset_room(self):
+        self.var_contact.set(""),
+        self.var_checkin.set(""),
+        self.var_checkout.set(""),
+        # self.var_roomtype.set(""),
+        self.var_availableroom.set(""),
+        self.var_meal.set(""),
+        self.var_noofdays.set(""),
+        self.var_paidtax.set(""),
+        self.var_subtotal.set(""),
+        self.var_totalcost.set("")
+
+                
 
 
 
