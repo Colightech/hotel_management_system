@@ -123,7 +123,7 @@ class Room_window:
         update_btn = Button(btn_frame, text="Update", command=self.update_room, font=("arial", 10, "bold"), bg="green", fg="gold", width=10, cursor="hand2")
         update_btn.grid(row=0, column=1, padx=8, pady=4)
 
-        delete_btn = Button(btn_frame, text="Delete", font=("arial", 10, "bold"), bg="green", fg="gold", width=10, cursor="hand2")
+        delete_btn = Button(btn_frame, text="Delete", command=self.delete_room, font=("arial", 10, "bold"), bg="green", fg="gold", width=10, cursor="hand2")
         delete_btn.grid(row=0, column=2, padx=8, pady=4)
 
         reset_btn = Button(btn_frame, text="Reset", command=self.reset_room, font=("arial", 10, "bold"), bg="green", fg="gold", width=10, cursor="hand2")
@@ -147,7 +147,7 @@ class Room_window:
 
         self.search_var=StringVar()
         combo_id_proof_label = ttk.Combobox(table_frame, textvariable=self.search_var, font=("arial", 10, "bold"), width=24, state="readonly")
-        combo_id_proof_label["value"] = ("Contact", "Room", "Name")
+        combo_id_proof_label["value"] = ("Contact", "Availableroom")
         combo_id_proof_label.current(0)
         combo_id_proof_label.grid(row=0, column=1, padx=2)
 
@@ -155,10 +155,10 @@ class Room_window:
         entry_search = ttk.Entry( table_frame, textvariable=self.txt_search, width=24, font=("arial", 10, "bold"))
         entry_search.grid(row=0, column=2, padx=2)
 
-        search_btn = Button(table_frame, text="Search", font=("arial", 8, "bold"), bg="green", fg="gold", width=15, cursor="hand2")
+        search_btn = Button(table_frame, text="Search", command=self.search_room, font=("arial", 8, "bold"), bg="green", fg="gold", width=15, cursor="hand2")
         search_btn.grid(row=0, column=3, padx=4)
 
-        show_all_btn = Button(table_frame, text="Show All", font=("arial", 8, "bold"), bg="green", fg="gold", width=15, cursor="hand2")
+        show_all_btn = Button(table_frame, text="Show All", command=self.fetch_room, font=("arial", 8, "bold"), bg="green", fg="gold", width=15, cursor="hand2")
         show_all_btn.grid(row=0, column=4, padx=4)
 
         # =================SHOW DATA TABLE==============================
@@ -319,17 +319,14 @@ class Room_window:
             try:
                 conn = mysql.connector.connect(host="127.0.0.1", username="root", password="admin123", database="hotel_management_system")
                 my_cursor = conn.cursor()
-                my_cursor.execute("INSERT INTO room value(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (
+                my_cursor.execute("INSERT INTO room value(%s, %s, %s, %s, %s, %s, %s)", (
                                                                                         self.var_contact.get(),
                                                                                         self.var_checkin.get(),
                                                                                         self.var_checkout.get(),
                                                                                         self.var_roomtype.get(),
                                                                                         self.var_availableroom.get(),
                                                                                         self.var_meal.get(),
-                                                                                        self.var_noofdays.get(),
-                                                                                        self.var_paidtax.get(),
-                                                                                        self.var_subtotal.get(),
-                                                                                        self.var_totalcost.get()
+                                                                                        self.var_noofdays.get()
                                                                                     ))
                 conn.commit()
                 self.fetch_room()
@@ -359,22 +356,36 @@ class Room_window:
         else:
             conn = mysql.connector.connect(host="127.0.0.1", username="root", password="admin123", database="hotel_management_system")
             my_cursor = conn.cursor()
-            my_cursor.execute("UPDATE room SET Checkin=%s, Checkout=%s, Roomtype=%s, Availableroom=%s, Meal=%s, Noofdays=%s, Paytax=%s, Subtotal=%s, Totalcost=%s WHERE Contact=%s", (
+            my_cursor.execute("UPDATE room SET Checkin=%s, Checkout=%s, Roomtype=%s, Availableroom=%s, Meal=%s, Noofdays=%s WHERE Contact=%s", (
                                                                                                                                                                         self.var_checkin.get(),
                                                                                                                                                                         self.var_checkout.get(),
                                                                                                                                                                         self.var_roomtype.get(),
                                                                                                                                                                         self.var_availableroom.get(),
                                                                                                                                                                         self.var_meal.get(),
                                                                                                                                                                         self.var_noofdays.get(),
-                                                                                                                                                                        self.var_paidtax.get(),
-                                                                                                                                                                        self.var_subtotal.get(),
-                                                                                                                                                                        self.var_totalcost.get(),
                                                                                                                                                                         self.var_contact.get()
                                                                                                                                                                     ))
             conn.commit()
             self.fetch_room()
             conn.close()
             messagebox.showinfo("Update", "Customer details has been updated successfully", parent=self.root)
+
+    # =================DELETE ROOM RECORD FUNCTION========================
+    def delete_room(self):
+        var_delete = messagebox.askyesno("Hotel Management System", "Are you sure you want to delete this room", parent=self.root)
+        if var_delete > 0:
+            conn = mysql.connector.connect(host="127.0.0.1", username="root", password="admin123", database="hotel_management_system")
+            my_cursor = conn.cursor()
+            query = "DELETE FROM room WHERE Contact=%s"
+            value = (self.var_contact.get(),)
+            my_cursor.execute(query, value)
+        else:
+            if not var_delete:
+                return
+        conn.commit()
+        self.fetch_room()
+        conn.close()
+        messagebox.showinfo("Deleted", "Room details has been deleted successfully", parent=self.root)
 
     # =================FUNCTION THAT REFILL THE FIELDS WITH THE CURSOR FOCUS ROW==============================
     def get_room_cursor(self, event=""):
@@ -388,10 +399,7 @@ class Room_window:
         self.var_roomtype.set(row[3]),
         self.var_availableroom.set(row[4]),
         self.var_meal.set(row[5]),
-        self.var_noofdays.set(row[6]),
-        self.var_paidtax.set(row[7]),
-        self.var_subtotal.set(row[8]),
-        self.var_totalcost.set(row[9])
+        self.var_noofdays.set(row[6])
 
     
      # =================RESET FUNCTION==============================
@@ -406,6 +414,19 @@ class Room_window:
         self.var_paidtax.set(""),
         self.var_subtotal.set(""),
         self.var_totalcost.set("")
+
+    # =================SEARCH FUNCTION==============================
+    def search_room(self):
+        conn = mysql.connector.connect(host="127.0.0.1", username="root", password="admin123", database="hotel_management_system")
+        my_cursor = conn.cursor()
+        my_cursor.execute("SELECT * FROM room WHERE "+str(self.search_var.get())+" LIKE '%"+str(self.txt_search.get())+"%' ")
+        rows=my_cursor.fetchall()
+        if len(rows) != 0:
+            self.room_table.delete(*self.room_table.get_children())
+            for i in rows:
+                self.room_table.insert("",END,values=i)
+            conn.commit()
+        conn.close()
 
                 
 
