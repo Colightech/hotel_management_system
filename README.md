@@ -1,5 +1,5 @@
 # Name of The Project
-# HOTEL MANAGEMENT SYSTEM
+HOTEL MANAGEMENT SYSTEM
 
 # INTRODUCTION: 
 A hotel management system is a comprehensive software solution designed to streamline and automate the operations 
