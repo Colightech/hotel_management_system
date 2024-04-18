@@ -6,14 +6,14 @@ from tkinter import messagebox
 import mysql.connector    #pip install mysql-connector-python
 
 
-
 class Customer_window:
+
     def __init__(self, root):
         self.root=root
         self.root.title("Customer Window")
         self.root.geometry("1310x555+235+225")
 
-         # =================VARIABLE===========================
+        # =================VARIABLE===========================
         self.var_ref = StringVar()
         x=random.randint(1000,9999)
         self.var_ref.set(str(x))
