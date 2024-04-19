@@ -58,12 +58,12 @@ class Signup_window:
         self.last_name_entry.place(x=482, y=120, width=250)
         # =========================================
 
-        # =================GENDER & HOME ADD ROW========================
-        # Gender Entry
-        gender = Label(signup_frame, text="Gender:", font=("times new roman", 15), fg="gold", bg="black")
-        gender.place(x=20, y=180)
-        self.gender_entry = Entry(signup_frame, font=("times new roman", 18))
-        self.gender_entry.place(x=120, y=180, width=250)
+        # =================PASSWORD & HOME ADD ROW========================
+        # Password Entry
+        password = Label(signup_frame, text="Password:", font=("times new roman", 15), fg="gold", bg="black")
+        password.place(x=20, y=180)
+        self. password_entry = Entry(signup_frame, font=("times new roman", 18))
+        self. password_entry.place(x=120, y=180, width=250)
 
         # Home Address Entry
         home_address = Label(signup_frame, text="Home Add:", font=("times new roman", 15), fg="gold", bg="black")
@@ -86,12 +86,12 @@ class Signup_window:
         self.nationality_entry.place(x=482, y=240, width=250)
         # =========================================
 
-        # =================Post Code & International Passport ROW========================
+        # =================Gender & International Passport ROW========================
         # Post Code Entry
-        post_code = Label(signup_frame, text="Post Code:", font=("times new roman", 15), fg="gold", bg="black")
-        post_code.place(x=20, y=300)
-        self.post_code_entry = Entry(signup_frame, font=("times new roman", 18))
-        self.post_code_entry.place(x=120, y=300, width=250)
+        gender = Label(signup_frame, text="Gender:", font=("times new roman", 15), fg="gold", bg="black")
+        gender.place(x=20, y=300)
+        self.gender_entry = Entry(signup_frame, font=("times new roman", 18))
+        self.gender_entry.place(x=120, y=300, width=250)
 
         # International Passport Entry
         inT_passport = Label(signup_frame, text="Int Passport:", font=("times new roman", 15), fg="gold", bg="black")
