@@ -2,6 +2,8 @@ from tkinter import *
 from PIL import Image, ImageTk
 from tkinter import ttk
 import random
+from time import strftime
+from datetime import datetime
 from tkinter import messagebox
 import mysql.connector    #pip install mysql-connector-python
 
@@ -79,11 +81,14 @@ class Room_window:
         entry_available_room = ttk.Entry( label_frame_left, textvariable=self.var_availableroom, width=35, font=("arial", 11, "bold"))
         entry_available_room.grid(row=4, column=1)
 
-        # Meal
+
+        # Meal Combobox
         label_meal = Label(label_frame_left, text = "Meal:", font=("arial", 10, "bold"), padx=2, pady=6)
         label_meal.grid(row=5, column=0, sticky=W)
-        entry_meal = ttk.Entry(label_frame_left, textvariable=self.var_meal, width=35, font=("arial", 11, "bold"))
-        entry_meal.grid(row=5, column=1)
+        combo_meal = ttk.Combobox(label_frame_left, textvariable=self.var_meal, font=("arial", 11, "bold"), width=33, state="readonly")
+        combo_meal["value"] = ("Breakfast", "Lunch", "Dinner")
+        combo_meal.current(0)
+        combo_meal.grid(row=5, column=1)
 
         # No of Days
         label_no_of_day = Label(label_frame_left, text = "No of Days:", font=("arial", 10, "bold"), padx=2, pady=6)
@@ -110,7 +115,7 @@ class Room_window:
         entry_total_cost.grid(row=9, column=1)
 
          # =================BILL BUTTON=========================
-        add_btn = Button(label_frame_left, text="Bill",  font=("arial", 10, "bold"), bg="green", fg="gold", width=10, cursor="hand2")
+        add_btn = Button(label_frame_left, text="Bill", command=self.total, font=("arial", 10, "bold"), bg="green", fg="gold", width=10, cursor="hand2")
         add_btn.grid(row=10, column=0, padx=2, pady=4, sticky=W)
 
         # =================BUTTONS==============================
@@ -368,7 +373,7 @@ class Room_window:
             conn.commit()
             self.fetch_room()
             conn.close()
-            messagebox.showinfo("Update", "Customer details has been updated successfully", parent=self.root)
+            messagebox.showinfo("Update", "Room details has been updated successfully", parent=self.root)
 
     # =================DELETE ROOM RECORD FUNCTION========================
     def delete_room(self):
@@ -428,6 +433,38 @@ class Room_window:
             conn.commit()
         conn.close()
 
+    def total(self):
+        inDate = self.var_checkin.get()
+        outDate = self.var_checkout.get()
+        inDate = datetime.strptime(inDate, "%d/%m/%Y")
+        outDate = datetime.strptime(outDate, "%d/%m/%Y")
+        self.var_noofdays.set(abs(outDate - inDate).days)
+
+        if (self.var_meal.get() == "Breakfast" and self.var_roomtype.get() == "Luxury"):
+            q1 = float(300)
+            q2 = float(700)
+            q3 = float(self.var_noofdays.get())
+            q4 = float(q1 + q2)
+            q5 =float(q3+q4)
+            Tax = "Rs."+str("%.2f"%((q5)*0.1))
+            SuBTax = "Rs."+str("%.2f"%((q5)))
+            GrandTotal = "Rs."+str("%.2f"%(q5+((q5)*0.1)))
+            self.var_paidtax.set(Tax)
+            self.var_subtotal.set(SuBTax)
+            self.var_totalcost.set(GrandTotal)
+
+        elif (self.var_meal.get() == "Lunch" and self.var_roomtype.get() == "Single"):
+            q1 = float(300)
+            q2 = float(700)
+            q3 = float(self.var_noofdays.get())
+            q4 = float(q1 + q2)
+            q5 =float(q3+q4)
+            Tax = "Rs."+str("%.2f"%((q5)*0.1))
+            SuBTax = "Rs."+str("%.2f"%((q5)))
+            GrandTotal = "Rs."+str("%.2f"%(q5+((q5)*0.1)))
+            self.var_paidtax.set(Tax)
+            self.var_subtotal.set(SuBTax)
+            self.var_totalcost.set(GrandTotal)
                 
 
 
